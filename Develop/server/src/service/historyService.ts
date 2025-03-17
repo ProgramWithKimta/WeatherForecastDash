@@ -40,14 +40,16 @@ class HistoryService {
   }
   // TODO Define an addCity method that adds a city to the searchHistory.json file
   async addCity(
-    city: string)
-    {
-    if (!city) {
-      throw new Error('City cannot be blank');
+    name: string,
+    id: string
+  ) {
+    if (!name) {
+      throw new Error('City name can not be blank');
     }
+
     const newCity: City = {
       name: name,
-      id: id,
+      id: id
     };
 
     return await this.getCities()
@@ -55,24 +57,7 @@ class HistoryService {
       return [...cities, newCity];
     })
     .then((updatedCities) => this.write(updatedCities)).then(() => newCity);
-  };
-  // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
-  // async removeCity(id: string) {}
+  }
 }
 
 export default new HistoryService();
-
-
-// async addCity(city: string): Promise<City[]> {
-//   const cities = await this.read();
-//   const cityExists = cities.some((c) =>c.name.toLowerCase() === city.toLowerCase())
-//   if (!cityExists) {
-//     const newCity = new City(city);
-//     cities.push(newCity);
-//     await this.write(cities)
-//   }
-
-//   return cities;
-
-
-// }
