@@ -5,7 +5,7 @@ class City {
   name: string;
   id: string;
 
-  constructor(name: string, id?:string) {
+  constructor(name: string, id?: string) {
     this.id = id || Date.now().toString();
     this.name = name
   }
@@ -14,24 +14,65 @@ class City {
 // TODO: Complete the HistoryService class
 class HistoryService {
   // TODO: Define a read method that reads from the searchHistory.json file
-private async read() {
-  try {
-    const data = await fs.readFile('searchHistory.json', 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    console.error('Error finding history', err);
+  private async read() {
+    return await fs.readFile('db/searchHistory.json', {
+      flag: 'a+',
+      encoding: 'utf8',
+    });
   }
-}
-
 
   // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
-  // private async write(cities: City[]) {}
+  private async write(cities: City[]) {
+    return await fs.writeFile('db/searchHistory.json', JSON.stringify(cities, null, '\t'));
+   }
+
   // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
-  // async getCities() {}
+  async getCities() {
+    return await this.read().then((cities) => {
+      let parsedCity: City[];
+      try {
+        parsedCity = [].concat(JSON.parse(cities));
+      } catch (err) {
+        parsedCity =[];
+      }
+      return parsedCity;
+    });
+  }
   // TODO Define an addCity method that adds a city to the searchHistory.json file
-  // async addCity(city: string) {}
+  async addCity(
+    city: string)
+    {
+    if (!city) {
+      throw new Error('City cannot be blank');
+    }
+    const newCity: City = {
+      name: name,
+      id: id,
+    };
+
+    return await this.getCities()
+    .then((cities) => {
+      return [...cities, newCity];
+    })
+    .then((updatedCities) => this.write(updatedCities)).then(() => newCity);
+  };
   // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
   // async removeCity(id: string) {}
 }
 
 export default new HistoryService();
+
+
+// async addCity(city: string): Promise<City[]> {
+//   const cities = await this.read();
+//   const cityExists = cities.some((c) =>c.name.toLowerCase() === city.toLowerCase())
+//   if (!cityExists) {
+//     const newCity = new City(city);
+//     cities.push(newCity);
+//     await this.write(cities)
+//   }
+
+//   return cities;
+
+
+// }
