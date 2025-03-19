@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
 // TODO: Define a City class with name and id properties
 class City {
@@ -47,10 +48,7 @@ class HistoryService {
       throw new Error('City name can not be blank');
     }
 
-    const newCity: City = {
-      name: name,
-      id: id
-    };
+    const newCity: City = { name: name, id: uuidv4() };
 
     return await this.getCities()
     .then((cities) => {

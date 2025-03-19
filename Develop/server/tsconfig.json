@@ -3,6 +3,9 @@
   "compilerOptions": {
     /* Modules */
     "rootDir": "src" /* Specify the root folder within your source files. */,
+    "module": "es2020",  // Set this to one of the compatible values
+    "target": "esnext",  // You can also use es2020 or a suitable version
+    "moduleResolution": "node",
 
     /* Emit */
     "outDir": "dist" /* Specify an output folder for all emitted files. */

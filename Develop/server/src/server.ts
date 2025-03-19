@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 import express, { type Request, type Response } from 'express';
-import path from 'path';
+import path from 'node:path';
 import { fileURLToPath } from 'url';
 dotenv.config();
 
