@@ -33,7 +33,7 @@ This project is licensed under ISC
 
 Questions? Contact Me! [knguyen@gmail.com](mailto:knguyen@gmail.com)
 
-Link to the walkthrough video: ()
+Link to the deployed live URL: (https://weatherforecastdash.onrender.com/)
 
 ## References
 OpenWeather API
