@@ -65,11 +65,9 @@ class WeatherService {
   }
   // TODO: Create fetchAndDestructureLocationData method
   private async fetchAndDestructureLocationData() {
-      // Fetch location data using the existing fetchLocationData method
     const locationData = await this.fetchLocationData();
   
     if (!locationData) {
-    // If no location data was returned (could be an invalid city or API error), return null
       console.error("No location data found.");
       return null;
     }
@@ -108,20 +106,16 @@ class WeatherService {
   async getWeatherForCity(city: string) {
     const coordinates = await this.fetchLocationData();
     if (!coordinates) {
-      return null; // If location data is invalid, return null
+      return null; 
     }
 
     const weatherData = await this.fetchWeatherData(coordinates);
     if (!weatherData) {
-      return null; // If weather data is invalid, return null
+      return null; 
     }
 
     const currentWeather = this.parseCurrentWeather(weatherData);
     const forecast = this.buildForecastArray(currentWeather, weatherData.list);
-
-    // You can log the current weather and forecast for debugging
-    console.log('Current Weather:', currentWeather.toString());
-    console.log('Forecast:', forecast);
 
     return forecast;
   }
